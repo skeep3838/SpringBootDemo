@@ -25,7 +25,7 @@ public class Customer {
 	@Column(name="user_name", unique = true, nullable = false)
 	private String userName;
 	
-	@Column(name="password", unique = true, nullable = false)
+	@Column(name="password", nullable = false)
 	private String password;
 
 	@Column(name = "createdDate")

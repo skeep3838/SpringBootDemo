@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.config.CommonParam;
+import com.example.comment.CommonParam;
 import com.example.entity.Customer;
 import com.example.response.ResponseBody;
 

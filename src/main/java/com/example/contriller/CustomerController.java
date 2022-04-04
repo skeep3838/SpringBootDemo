@@ -3,7 +3,6 @@ package com.example.contriller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.config.CommonParam;
+import com.example.comment.CommonParam;
 import com.example.entity.Customer;
 import com.example.response.ResponseBody;
 import com.example.service.CustomerService;
@@ -34,10 +33,16 @@ public class CustomerController {
 	@GetMapping("/findAllCustomer")
 	public ResponseBody<Customer> findAllCustomer(HttpServletRequest request) {
 		ResponseBody<Customer> res = new ResponseBody<Customer>();
-		List<Customer> customerList = customerService.findAll();
-		res.setTransactionId(UUID.randomUUID().toString());
-		res.setReturnCode(CommonParam.SUCCESS_RETURNCODE);
-		res.setReturnData(customerList);
+		try {
+			List<Customer> customerList = customerService.findAll();
+			res.successSet();
+			res.setReturnMessage("查詢客戶清單"+res.getReturnMessage());
+			res.setReturnData(customerList);
+		} catch (Exception e) {
+			res.failSet();
+			res.setReturnMessage("查詢客戶清單"+res.getReturnMessage());
+			res.setErrorMessage(e.toString());
+		}
 		return res;
 	}
 
@@ -48,19 +53,19 @@ public class CustomerController {
 	public ResponseBody<Customer> findCustomerById(HttpServletRequest request, @RequestParam("id") Integer id) {
 		ResponseBody<Customer> res = new ResponseBody<Customer>();
 		List<Customer> customerList = new ArrayList<>();
+		
 		try {
 			Customer customerRes = customerService.findCustomerById(id);
 			if (customerRes != null)
 				customerList.add(customerRes);
-			res.setReturnCode(CommonParam.SUCCESS_RETURNCODE);
-			res.setReturnMessage("查詢成功");
+			res.successSet();
+			res.setReturnMessage("查詢客戶"+res.getReturnMessage());
 			res.setReturnData(customerList);
 		} catch (Exception e) {
-			res.setReturnCode(CommonParam.FAIL_RETURNCODE);
-			res.setReturnMessage("查詢失敗");
+			res.failSet();
+			res.setReturnMessage("查詢客戶"+res.getReturnMessage());
 			res.setErrorMessage(e.toString());
 		}
-		res.setTransactionId(UUID.randomUUID().toString());
 		return res;
 	}
 
@@ -69,15 +74,9 @@ public class CustomerController {
 	 */
 	@PostMapping("/insertCustomer")
 	public ResponseBody<Customer> insertsCustomer(HttpServletRequest request, @RequestBody Customer customer) {
-		ResponseBody<Customer> res = new ResponseBody<Customer>();
-		List<Customer> returnData = new ArrayList<>();
-		customer.setUpdateDate(new Date());
 		customer.setCreatedDate(new Date());
-		Customer customerRes = customerService.save(customer);
-		returnData.add(customerRes);
-		res.setTransactionId(UUID.randomUUID().toString());
-		res.setReturnCode(CommonParam.SUCCESS_RETURNCODE);
-		res.setReturnData(returnData);
+		ResponseBody<Customer> res = customerService.checkAndSaveCustomer(customer);
+		res.setReturnMessage("新增客戶"+res.getReturnMessage());
 		return res;
 	}
 
@@ -86,14 +85,18 @@ public class CustomerController {
 	 */
 	@PutMapping("/updateCustomer")
 	public ResponseBody<Customer> saveCustomer(HttpServletRequest request, @RequestBody Customer customer) {
-		ResponseBody<Customer> res = new ResponseBody<Customer>();
-		List<Customer> returnData = new ArrayList<>();
-		customer.setUpdateDate(new Date());
-		Customer customerRes = customerService.save(customer);
-		returnData.add(customerRes);
-		res.setTransactionId(UUID.randomUUID().toString());
-		res.setReturnCode(CommonParam.SUCCESS_RETURNCODE);
-		res.setReturnData(returnData);
+		ResponseBody<Customer> res = new ResponseBody<>();
+		if(customer.getCid()==null) {
+			List<String> errMsgs = new ArrayList<>();
+			String errMsg = "無輸入Id";
+			errMsgs.add(errMsg);
+			res.setReturnCode(CommonParam.FAIL_RETURNCODE);
+			res.setReturnMessage(errMsg);
+			res.setErrorMessages(errMsgs);
+			return res;
+		}
+		res = customerService.checkAndSaveCustomer(customer);					
+		res.setReturnMessage("修改客戶資料"+res.getReturnMessage());
 		return res;
 	}
 
@@ -103,16 +106,16 @@ public class CustomerController {
 	@DeleteMapping("/deleteCustomer")
 	public ResponseBody<Customer> deleteCustomer(HttpServletRequest request, @RequestBody Customer customer) {
 		ResponseBody<Customer> res = new ResponseBody<Customer>();
+		
 		try {
 			customerService.delete(customer.getCid());
-			res.setReturnCode(CommonParam.SUCCESS_RETURNCODE);
-			res.setReturnMessage("刪除成功");
+			res.successSet();
+			res.setReturnMessage("刪除客戶"+res.getReturnMessage());
 		} catch (Exception e) {
-			res.setReturnCode(CommonParam.FAIL_RETURNCODE);
-			res.setReturnMessage("刪除失敗");
+			res.successSet();
+			res.setReturnMessage("刪除客戶"+res.getReturnMessage());
 			res.setErrorMessage(e.toString());
 		}
-		res.setTransactionId(UUID.randomUUID().toString());
 		return res;
 	}
 }
