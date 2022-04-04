@@ -6,6 +6,7 @@ import com.example.entity.Customer;
 
 public interface CustomerService {
 	List<Customer> findAll();
-	Customer queryCustomerById(Integer id);
+	Customer findCustomerById(Integer id);
 	Customer save(Customer customer);
+	void delete(Integer id);
 }

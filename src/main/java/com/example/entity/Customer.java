@@ -22,10 +22,10 @@ public class Customer {
 	@Column(name="seq", unique = true, nullable = false)
 	private Integer cid;
 	
-	@Column(name="user_name")
+	@Column(name="user_name", unique = true, nullable = false)
 	private String userName;
 	
-	@Column(name="password")
+	@Column(name="password", unique = true, nullable = false)
 	private String password;
 
 	@Column(name = "createdDate")

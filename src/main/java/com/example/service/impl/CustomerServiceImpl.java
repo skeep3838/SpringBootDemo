@@ -24,13 +24,18 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
-	public Customer queryCustomerById(Integer cid) {
+	public Customer findCustomerById(Integer cid) {
 		return dao.findByCid(cid);
 	}
 
 	@Override
 	public Customer save (Customer customer){
 		return dao.saveAndFlush(customer);
+	}
+
+	@Override
+	public void delete(Integer id) {
+		dao.deleteById(id);
 	}
 
 }
