@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.comment.CommonParam;
 import com.example.entity.Customer;
-import com.example.response.ResponseBody;
+import com.example.response.ResponseBodyEntity;
 
 @RestController
 @RequestMapping(value = "/auth")
@@ -20,8 +20,8 @@ public class AuthController {
 //	private CustomerService customerService;
 	
 	@PostMapping(value = "/login")
-	public ResponseBody<Customer> login(@RequestBody Customer customer, Map<String, Object> map) {
-		ResponseBody<Customer> res = new ResponseBody<Customer>();
+	public ResponseBodyEntity<Customer> login(@RequestBody Customer customer, Map<String, Object> map) {
+		ResponseBodyEntity<Customer> res = new ResponseBodyEntity<Customer>();
 		res.setTransactionId(UUID.randomUUID().toString());
 		if(!StringUtils.isEmpty(customer.getUserName()) && "000000".equals(customer.getPassword())) {
 			res.setReturnCode(CommonParam.SUCCESS_RETURNCODE);

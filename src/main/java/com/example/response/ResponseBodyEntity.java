@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import com.example.comment.CommonParam;
 
-public class ResponseBody<T> {
+public class ResponseBodyEntity<T> {
 
 	private String transactionId = "";
 	private String errorMessage = "";
@@ -69,10 +69,10 @@ public class ResponseBody<T> {
 		this.returnMessage = "執行成功";
 	}
 	
-	public void failSet() {
+	public void failSet(String errMsg) {
 		this.transactionId = UUID.randomUUID().toString();
 		this.returnCode = CommonParam.FAIL_RETURNCODE;
-		this.returnMessage = "執行失敗";
+		this.returnMessage = errMsg;
 	}
 
 }
