@@ -78,6 +78,7 @@ public class CustomerController {
 	@PostMapping("/insertCustomer")
 	public ResponseBodyEntity<Customer> insertsCustomer(HttpServletRequest request, @RequestBody Customer customer) {
 		customer.setCreatedDate(new Date());	
+		customer.setUpdateDate(new Date());
 		ResponseBodyEntity<Customer> res = new ResponseBodyEntity<>();
 		List<String> errMsgs = customerService.checkCustomer(customer);
 		if(errMsgs.size()>0) {
