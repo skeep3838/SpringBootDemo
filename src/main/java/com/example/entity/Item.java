@@ -22,7 +22,7 @@ import javax.persistence.Table;
 //parameters = @StoredProcedureParameter(mode = ParameterMode.IN, name = "price_in", type = Integer.class))
 public class Item {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_item_iid")
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="seq_item_iid")
 	@SequenceGenerator(name="seq", sequenceName="seq_item_iid", allocationSize=1)
 	@Column(name = "seq", unique = true, nullable = false)
 	private Integer iid;

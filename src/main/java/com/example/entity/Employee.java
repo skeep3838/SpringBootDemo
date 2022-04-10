@@ -21,9 +21,9 @@ import javax.persistence.Table;
 @Table(name = "employee")
 public class Employee {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_employee_eid")
-	@SequenceGenerator(name = "seq", sequenceName = "seq_employee_eid", allocationSize = 1)
-	@Column(name = "seq", unique = true, nullable = false)
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="seq_employee_eid")
+	@SequenceGenerator(name="seq", sequenceName="seq_employee_eid", allocationSize=1)
+	@Column(name="seq", unique = true, nullable = false)
 	private Integer eid;
 
 	@Column(name = "cname", unique = true, nullable = false)

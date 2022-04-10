@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @Table(name = "orders")
 public class Orders {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_orders_oid")
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="seq_orders_oid")
 	@SequenceGenerator(name="seq", sequenceName="seq_orders_oid", allocationSize=1)
 	@Column(name = "seq", unique = true, nullable = false)
 	private Integer oid;

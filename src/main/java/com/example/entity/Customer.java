@@ -79,12 +79,12 @@ public class Customer {
 		this.updateDate = updateDate;
 	}
 
-//	public Set<Orders> getOrderList() {
-//		return orderList;
-//	}
-//
-//	public void setOrderList(Set<Orders> orderList) {
-//		this.orderList = orderList;
-//	}
+	public Set<Orders> getOrderList() {
+		return orderList;
+	}
+
+	public void setOrderList(Set<Orders> orderList) {
+		this.orderList = orderList;
+	}
 
 }

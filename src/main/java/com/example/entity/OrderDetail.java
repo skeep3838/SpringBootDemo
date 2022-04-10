@@ -19,8 +19,8 @@ import javax.persistence.Table;
 @Table(name = "orderDetail")
 public class OrderDetail {
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="seq_orderDetail_seq")
-	@SequenceGenerator(name="seq_orderDetail_seq", allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.IDENTITY, generator="seq_orderDetail_seq")
+	@SequenceGenerator(name="seq", sequenceName="seq_orderDetail_seq", allocationSize=1)
 	@Column(name = "seq", unique = true, nullable = false)
 	private Integer odid;
 	
