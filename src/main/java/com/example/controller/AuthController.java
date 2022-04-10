@@ -1,4 +1,4 @@
-package com.example.contriller;
+package com.example.controller;
 
 import java.util.Map;
 import java.util.UUID;

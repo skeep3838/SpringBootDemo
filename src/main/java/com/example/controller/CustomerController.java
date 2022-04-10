@@ -1,4 +1,4 @@
-package com.example.contriller;
+package com.example.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,9 @@ import com.example.service.CustomerService;
 @RestController
 @RequestMapping("customer")
 public class CustomerController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
+	
 	@Autowired
 	private CustomerService customerService;
 
@@ -42,9 +47,9 @@ public class CustomerController {
 			res.setReturnMessage("查詢客戶清單"+res.getReturnMessage());
 			res.setReturnData(customerList);
 		} catch (Exception e) {
-			res.failSet("查詢客戶清單執行失敗");
-			res.setReturnMessage("查詢客戶清單"+res.getReturnMessage());
-			res.setErrorMessage(e.toString());
+			logger.debug("customer/findAllCustomer() ");
+			res = errHandler(e, "customerController：查詢所有資料：執行錯誤");
+			ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
 		}
 		return res;
 	}
@@ -65,9 +70,9 @@ public class CustomerController {
 			res.setReturnMessage("查詢客戶"+res.getReturnMessage());
 			res.setReturnData(customerList);
 		} catch (Exception e) {
-			res.failSet("customerController：查詢條件有誤");
-			res.setReturnMessage("查詢客戶"+res.getReturnMessage());
-			res.setErrorMessage(e.toString());
+			logger.debug("customer/findCustomerById(): cid:{}", id);
+			res = errHandler(e, "customerController：查詢客戶資料：執行錯誤");
+			ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
 		}
 		return res;
 	}
@@ -95,10 +100,12 @@ public class CustomerController {
 			res.successSet();
 			res.setReturnData(rtnData);
 		} catch (UnexpectedRollbackException e) {
-			res = errHandler(e, "customerService：unique key重複，無法新增");
+			logger.debug("customer/insertCustomer(): userName:{}", customer.getUserName());
+			res = errHandler(e, "customerController：unique key重複，無法新增");
 			ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
 		}catch (Exception e) {
-			res = errHandler(e, "customerService：執行錯誤");
+			logger.debug("customer/insertCustomer(): userName:{}", customer.getUserName());
+			res = errHandler(e, "customerController：新增客戶資料：執行錯誤");
 			ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
 		}	
 		return res;
@@ -108,7 +115,7 @@ public class CustomerController {
 	 * 修改客戶資料
 	 */
 	@PutMapping("/updateCustomer")
-	public ResponseBodyEntity<Customer> saveCustomer(HttpServletRequest request, @RequestBody Customer customer) {
+	public ResponseBodyEntity<Customer> updateCustomer(HttpServletRequest request, @RequestBody Customer customer) {
 		ResponseBodyEntity<Customer> res = new ResponseBodyEntity<>();
 		List<String> errMsgs = new ArrayList<>();
 		if(customer.getCid()==null) {
@@ -122,7 +129,6 @@ public class CustomerController {
 		
 		errMsgs = customerService.checkCustomer(customer);
 		if(errMsgs.size()>0) {
-//			res.failSet();
 			res.setErrorMessage("欄位填寫不完整");
 			res.setErrorMessages(errMsgs);
 			return res;
@@ -135,10 +141,12 @@ public class CustomerController {
 			res.successSet();
 			res.setReturnData(rtnData);
 		} catch (UnexpectedRollbackException e) {
-			res = errHandler(e, "customerService：unique key重複，無法新增");
+			logger.debug("customer/updateCustomer(): userName:{}", customer.getUserName());
+			res = errHandler(e, "customerController：unique key重複，無法新增");
 			ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
 		}catch (Exception e) {
-			res = errHandler(e, "customerService：執行錯誤");
+			logger.debug("customer/updateCustomer(): userName:{}", customer.getUserName());
+			res = errHandler(e, "customerController：修改客戶資料 ：執行錯誤");
 			ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
 		}						
 		return res;
@@ -156,13 +164,16 @@ public class CustomerController {
 			res.successSet();
 			res.setReturnMessage("刪除客戶"+res.getReturnMessage());
 		} catch (Exception e) {
-			res.failSet("customerController：刪除客戶資料執行錯誤");
-			res.setReturnMessage("刪除客戶"+res.getReturnMessage());
-			res.setErrorMessage(e.toString());
+			logger.debug("customer/deleteCustomer(): cid:{}", customer.getCid());
+			res = errHandler(e, "customerController：刪除客戶資料執行錯誤");
+			ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
 		}
 		return res;
 	}
 	
+	/*
+	 * 錯誤處理預設格式
+	 */
 	private ResponseBodyEntity<Customer> errHandler(Exception e, String errMsg){
 		ResponseBodyEntity<Customer> res = new ResponseBodyEntity<Customer>();
 		List<String> errMsgs = new ArrayList<>();

@@ -7,6 +7,7 @@ DB: MySQL
 1. 建立SpringBoot 專案
 2. 單一表格的CRUD
 3. 自訂API錯誤處理回傳格式
+4. 建立logging Logback
 
 ---
 待處理問題:
