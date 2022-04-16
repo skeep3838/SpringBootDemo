@@ -7,7 +7,8 @@ DB: MySQL
 1. 建立SpringBoot 專案
 2. 單一表格的CRUD
 3. 自訂API錯誤處理回傳格式
-4. 建立logging Logback
+4. 建立logging Logback [Spring Boot logging 記錄記起來](https://ithelp.ithome.com.tw/articles/10248974)
+5. [Spring Security 的驗證與授權](https://chikuwa-tech-study.blogspot.com/2021/06/spring-boot-security-authentication-and-authorization.html)
 
 ---
 待處理問題:

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.entity.Customer;
@@ -18,6 +19,7 @@ public class CustomerServiceImpl implements CustomerService{
 
 	@Autowired
 	private CustomerRepository dao;
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 	@Override
 	public List<Customer> findAll() {
@@ -30,15 +32,27 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
-	public Customer save (Customer customer){
+	public Customer update (Customer customer){
 		return dao.saveAndFlush(customer);
 	}
 
+	@Override
+	public Customer insert(Customer customer) {
+		// 新增前，對密碼進行加密
+		customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+		return dao.saveAndFlush(customer);
+	}
+	
 	@Override
 	public void delete(Integer id) {
 		dao.deleteById(id);
 	}
 
+	@Override
+	public Customer findByUserName(String userName) {
+		return dao.findByUserName(userName);
+	}
+	
 	@Override
 	public List<String> checkCustomer(Customer customer) {
 		List<String> errMsg = new ArrayList<>();

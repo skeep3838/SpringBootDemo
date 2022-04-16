@@ -50,6 +50,7 @@ public class CustomerController {
 			logger.debug("customer/findAllCustomer() ");
 			res = errHandler(e, "customerController：查詢所有資料：執行錯誤");
 			ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
+			e.printStackTrace();
 		}
 		return res;
 	}
@@ -73,6 +74,7 @@ public class CustomerController {
 			logger.debug("customer/findCustomerById(): cid:{}", id);
 			res = errHandler(e, "customerController：查詢客戶資料：執行錯誤");
 			ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
+			e.printStackTrace();
 		}
 		return res;
 	}
@@ -95,7 +97,7 @@ public class CustomerController {
 		
 		List<Customer> rtnData = new ArrayList<>();
 		try {
-			rtnData.add(customerService.save(customer));
+			rtnData.add(customerService.insert(customer));
 			res.setReturnMessage("新增客戶"+res.getReturnMessage());
 			res.successSet();
 			res.setReturnData(rtnData);
@@ -103,10 +105,12 @@ public class CustomerController {
 			logger.debug("customer/insertCustomer(): userName:{}", customer.getUserName());
 			res = errHandler(e, "customerController：unique key重複，無法新增");
 			ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
+			e.printStackTrace();
 		}catch (Exception e) {
 			logger.debug("customer/insertCustomer(): userName:{}", customer.getUserName());
 			res = errHandler(e, "customerController：新增客戶資料：執行錯誤");
 			ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
+			e.printStackTrace();
 		}	
 		return res;
 	}
@@ -136,7 +140,7 @@ public class CustomerController {
 		
 		List<Customer> rtnData = new ArrayList<>();
 		try {
-			rtnData.add(customerService.save(customer));
+			rtnData.add(customerService.update(customer));
 			res.setReturnMessage("修改客戶資料"+res.getReturnMessage());
 			res.successSet();
 			res.setReturnData(rtnData);
@@ -144,10 +148,12 @@ public class CustomerController {
 			logger.debug("customer/updateCustomer(): userName:{}", customer.getUserName());
 			res = errHandler(e, "customerController：unique key重複，無法新增");
 			ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
+			e.printStackTrace();
 		}catch (Exception e) {
 			logger.debug("customer/updateCustomer(): userName:{}", customer.getUserName());
 			res = errHandler(e, "customerController：修改客戶資料 ：執行錯誤");
 			ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
+			e.printStackTrace();
 		}						
 		return res;
 	}
@@ -167,6 +173,7 @@ public class CustomerController {
 			logger.debug("customer/deleteCustomer(): cid:{}", customer.getCid());
 			res = errHandler(e, "customerController：刪除客戶資料執行錯誤");
 			ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
+			e.printStackTrace();
 		}
 		return res;
 	}
