@@ -1,6 +1,5 @@
 package com.example.entity;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
@@ -34,7 +33,7 @@ public class Customer {
 	private String password;
 
 	@Column(name = "enabled", nullable = false)
-	private boolean enabled;
+	private String enabled;
 
 	@Column(name = "tokenExpired")
 	private boolean tokenExpired;
@@ -45,9 +44,9 @@ public class Customer {
 	@Column(name = "updateDate")
 	private Date updateDate;
 
-	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "customer_role", joinColumns = @JoinColumn(name = "cid", referencedColumnName = "seq"), inverseJoinColumns = @JoinColumn(name = "rid", referencedColumnName = "seq"))
-	private Collection<Role> roles;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(joinColumns = @JoinColumn(name = "customer_seq", referencedColumnName = "seq"), inverseJoinColumns = @JoinColumn(name = "role_seq", referencedColumnName = "seq"))
+	private Set<Role> role;
 
 //	 將資料以typeID欄位 ASC方式排列後再寫進Set內
 	@OneToMany(mappedBy = "customer", orphanRemoval = false, fetch = FetchType.LAZY)
@@ -102,11 +101,11 @@ public class Customer {
 		this.orderList = orderList;
 	}
 
-	public boolean isEnabled() {
+	public String getEnabled() {
 		return enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
+	public void setEnabled(String enabled) {
 		this.enabled = enabled;
 	}
 
@@ -118,12 +117,12 @@ public class Customer {
 		this.tokenExpired = tokenExpired;
 	}
 
-	public Collection<Role> getRoles() {
-		return roles;
+	public Set<Role> getRole() {
+		return role;
 	}
 
-	public void setRoles(Collection<Role> roles) {
-		this.roles = roles;
+	public void setRole(Set<Role> role) {
+		this.role = role;
 	}
 
 }

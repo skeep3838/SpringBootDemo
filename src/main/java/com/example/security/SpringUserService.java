@@ -2,7 +2,9 @@ package com.example.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,14 +31,21 @@ public class SpringUserService implements UserDetailsService {
 		Customer user = customerService.findByUserName(username);
 		if (user == null)
 			throw new UsernameNotFoundException("Username is wrong.");
-		return new User(user.getUserName(), user.getPassword(), getAuthorities(user.getRoles()));
+		
+		return new User(user.getUserName(), user.getPassword(), getAuthorities(user.getRole()));
 	}
 
 	/*
 	 * 取得授權的functions
+	 * 取得授權的角色
 	 */
-	private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
-		return getGrantedAuthorities(getFunctions(roles));
+	private List<GrantedAuthority> getAuthorities(Collection<Role> roles) {
+		List<GrantedAuthority> roleSet = new ArrayList<>();
+		for(Role role:roles) {
+			roleSet.add(new SimpleGrantedAuthority(role.getName()));
+		}	
+		return roleSet;
+//		return getGrantedAuthorities(getFunctions(roles));
 	}
 
 	/*

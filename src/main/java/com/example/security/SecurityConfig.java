@@ -8,14 +8,19 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
+	
+	@Autowired
+    private JWTAuthenticationFilter jwtAuthenticationFilter;
 
 	/*
 	 * 「/customer」這個 API 及其底下的所有 GET 請求，需通過身份驗證才可存取。 其餘 API 的所有GET請求，允許所有呼叫方存取。
@@ -26,13 +31,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/auth").permitAll()
 	        .antMatchers(HttpMethod.POST, "/auth/parse").permitAll()
-			.antMatchers(HttpMethod.GET, "/customer/**").authenticated()
 			.antMatchers(HttpMethod.GET).permitAll()
 			.antMatchers(HttpMethod.POST, "/customer/insertCustomer").permitAll()
 			.antMatchers(HttpMethod.DELETE, "/customer/deleteCustomer").hasAuthority("admin")
 			.anyRequest().authenticated()
-//			.anyRequest().permitAll()
-			.and().csrf().disable().formLogin();
+            .and().addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and().csrf().disable();
 	}
 
 	/*

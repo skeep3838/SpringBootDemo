@@ -2,11 +2,9 @@ package com.example.controller;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.UUID;
 
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.comment.CommonParam;
 import com.example.dto.AuthRequest;
-import com.example.entity.Customer;
-import com.example.response.ResponseBodyEntity;
 import com.example.security.JWTService;
 
 @RestController
@@ -27,18 +22,18 @@ public class AuthController {
 	@Autowired
     private JWTService jwtService;
 	
-	@PostMapping(value = "/login")
-	public ResponseBodyEntity<Customer> login(@RequestBody Customer customer, Map<String, Object> map) {
-		ResponseBodyEntity<Customer> res = new ResponseBodyEntity<Customer>();
-		res.setTransactionId(UUID.randomUUID().toString());
-		if(!StringUtils.isEmpty(customer.getUserName()) && "000000".equals(customer.getPassword())) {
-			res.setReturnCode(CommonParam.SUCCESS_RETURNCODE);
-		}else {
-			res.setReturnCode(CommonParam.FAIL_RETURNCODE);
-			res.setErrorMessage("登錄失敗");
-		}
-		return res;
-	}
+//	@PostMapping(value = "/login")
+//	public ResponseBodyEntity<Customer> login(@RequestBody Customer customer, Map<String, Object> map) {
+//		ResponseBodyEntity<Customer> res = new ResponseBodyEntity<Customer>();
+//		res.setTransactionId(UUID.randomUUID().toString());
+//		if(!StringUtils.isEmpty(customer.getUserName()) && "000000".equals(customer.getPassword())) {
+//			res.setReturnCode(CommonParam.SUCCESS_RETURNCODE);
+//		}else {
+//			res.setReturnCode(CommonParam.FAIL_RETURNCODE);
+//			res.setErrorMessage("登錄失敗");
+//		}
+//		return res;
+//	}
 	
 	@PostMapping
     public ResponseEntity<Map<String, String>> issueToken(@Valid @RequestBody AuthRequest request) {
