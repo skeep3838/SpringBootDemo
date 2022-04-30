@@ -24,7 +24,7 @@ public class OrderDetail {
 	@Column(name = "seq", unique = true, nullable = false)
 	private Integer odid;
 	
-	@Column(name = "qty", unique = true, nullable = false)
+	@Column(name = "qty", nullable = false)
 	private Integer qty;
 	
 	@ManyToOne(targetEntity = Item.class)

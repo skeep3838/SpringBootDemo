@@ -30,10 +30,10 @@ public class Item {
 	@Column(name = "iname", unique = true, nullable = false)
 	private String iname;
 	
-	@Column(name = "type", unique = true, nullable = false)
+	@Column(name = "type", unique = false, nullable = false)
 	private String type;
 	
-	@Column(name = "price", unique = true, nullable = false)
+	@Column(name = "price", unique = false, nullable = false)
 	private Integer price;
 	
 	@Column(name = "createdDate")
