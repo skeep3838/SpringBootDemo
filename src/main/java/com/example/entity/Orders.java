@@ -6,12 +6,10 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
@@ -29,9 +27,11 @@ public class Orders {
 	@Column(name = "seq", unique = true, nullable = false)
 	private Integer oid;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cid", nullable = false)
-	private Customer customer;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "cid", nullable = false)
+//	private Customer customer;
+	@Column(name = "cid", nullable = false)
+	private Integer cid;
 
 //	fetch = FetchType.EAGER 加入這個會導致撈出的Bean式舊的資料
 //	mappedBy="orderMap",  => 在Itemline 找到對應的 private Orders orderMap
@@ -54,16 +54,32 @@ public class Orders {
 		this.oid = oid;
 	}
 
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+//	public Integer getCid() {
+//		return cid;
+//	}
+//
+//	public void setCid(Integer cid) {
+//		this.cid = cid;
+//	}
 
 	public List<OrderDetail> getOrders() {
 		return orders;
+	}
+
+//	public Customer getCustomer() {
+//		return customer;
+//	}
+//
+//	public void setCustomer(Customer customer) {
+//		this.customer = customer;
+//	}
+
+	public Integer getCid() {
+		return cid;
+	}
+
+	public void setCid(Integer cid) {
+		this.cid = cid;
 	}
 
 	public void setOrders(List<OrderDetail> orders) {

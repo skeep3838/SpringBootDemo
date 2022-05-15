@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -49,9 +47,9 @@ public class Customer {
 	private Set<Role> role;
 
 //	 將資料以typeID欄位 ASC方式排列後再寫進Set內
-	@OneToMany(mappedBy = "customer", orphanRemoval = false, fetch = FetchType.LAZY)
-	@OrderBy("oid")
-	private Set<Orders> orderList;
+//	@OneToMany(mappedBy = "customer", orphanRemoval = false, fetch = FetchType.LAZY)
+//	@OrderBy("oid")
+//	private Set<Orders> orderList;
 
 	public Integer getCid() {
 		return cid;
@@ -91,14 +89,6 @@ public class Customer {
 
 	public void setUpdateDate(Date updateDate) {
 		this.updateDate = updateDate;
-	}
-
-	public Set<Orders> getOrderList() {
-		return orderList;
-	}
-
-	public void setOrderList(Set<Orders> orderList) {
-		this.orderList = orderList;
 	}
 
 	public String getEnabled() {

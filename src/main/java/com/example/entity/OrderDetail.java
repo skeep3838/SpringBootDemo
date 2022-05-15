@@ -1,7 +1,5 @@
 package com.example.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,15 +29,11 @@ public class OrderDetail {
 	@JoinColumn(name = "iid", nullable = false)
 	private Item item;
 
-	@ManyToOne(targetEntity = Orders.class)
-	@JoinColumn(name = "oid")
-	private Orders order;
-	
-	@Column(name = "createdDate")
-	private Date createdDate;
-	
-	@Column(name = "updateDate")
-	private Date updateDate;
+//	@ManyToOne(targetEntity = Orders.class)
+//	@JoinColumn(name = "oid")
+//	private Orders order;
+	@Column(name = "oid", nullable = false)
+	private String oid;
 
 	public Integer getOdid() {
 		return odid;
@@ -65,28 +59,20 @@ public class OrderDetail {
 		this.item = item;
 	}
 
-	public Orders getOrder() {
-		return order;
+	public String getOid() {
+		return oid;
 	}
 
-	public void setOrder(Orders order) {
-		this.order = order;
+	public void setOid(String oid) {
+		this.oid = oid;
 	}
 
-	public Date getCreatedDate() {
-		return createdDate;
-	}
+//	public Orders getOrder() {
+//		return order;
+//	}
+//
+//	public void setOrder(Orders order) {
+//		this.order = order;
+//	}
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
-	
 }
