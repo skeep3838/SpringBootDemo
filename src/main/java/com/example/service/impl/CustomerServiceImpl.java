@@ -13,14 +13,13 @@ import com.example.entity.Customer;
 import com.example.repository.CustomerRepository;
 import com.example.service.CustomerService;
 
-@Transactional
 @Service
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerRepository dao;
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-	
+	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 	@Override
 	public List<Customer> findAll() {
 		return dao.findAll();
@@ -31,18 +30,21 @@ public class CustomerServiceImpl implements CustomerService{
 		return dao.findByCid(cid);
 	}
 
+	@Transactional
 	@Override
-	public Customer update (Customer customer){
+	public Customer update(Customer customer) {
 		return dao.saveAndFlush(customer);
 	}
 
+	@Transactional
 	@Override
 	public Customer insert(Customer customer) {
 		// 新增前，對密碼進行加密
 		customer.setPassword(passwordEncoder.encode(customer.getPassword()));
 		return dao.saveAndFlush(customer);
 	}
-	
+
+	@Transactional
 	@Override
 	public void delete(Integer id) {
 		dao.deleteById(id);
@@ -52,15 +54,15 @@ public class CustomerServiceImpl implements CustomerService{
 	public Customer findByUserName(String userName) {
 		return dao.findByUserName(userName);
 	}
-	
+
 	@Override
 	public List<String> checkCustomer(Customer customer) {
 		List<String> errMsg = new ArrayList<>();
-		if(customer.getUserName().isEmpty()) 
-			errMsg.add("帳號不得為空");		
-		if(customer.getPassword().isEmpty()) 
+		if (customer.getUserName().isEmpty())
+			errMsg.add("帳號不得為空");
+		if (customer.getPassword().isEmpty())
 			errMsg.add("密碼不得為空");
-		return errMsg;		
+		return errMsg;
 	}
 
 }

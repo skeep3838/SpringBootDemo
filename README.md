@@ -15,6 +15,7 @@ init.sql
 6. [基於帳密的驗證與核發 JWT](https://chikuwa-tech-study.blogspot.com/2021/06/spring-boot-username-password-authentication-and-jwt.html)
 	基本功能完成，驗證邏輯需再做調整
 7. 加入單一表格CRUD的單元測試
+8. ItemService - [JPA 使用 Specification 复杂查询和 Criteria 查询](https://blog.wuwii.com/jpa-specification.html)
 
 ---
 待處理問題:
