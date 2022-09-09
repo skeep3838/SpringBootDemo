@@ -17,6 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.SpringBootDemoApplication;
 import com.example.repository.OrderRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 @RunWith(SpringRunner.class)

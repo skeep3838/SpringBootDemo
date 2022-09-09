@@ -21,19 +21,19 @@ public class OrderDetail {
 	@SequenceGenerator(name="seq", sequenceName="seq_orderDetail_seq", allocationSize=1)
 	@Column(name = "seq", unique = true, nullable = false)
 	private Integer odid;
-	
+
 	@Column(name = "qty", nullable = false)
 	private Integer qty;
-	
+
 	@ManyToOne(targetEntity = Item.class)
 	@JoinColumn(name = "iid", nullable = false)
 	private Item item;
 
-//	@ManyToOne(targetEntity = Orders.class)
-//	@JoinColumn(name = "oid")
-//	private Orders order;
+	//	@ManyToOne(targetEntity = Orders.class)
+	//	@JoinColumn(name = "oid")
+	//	private Orders order;
 	@Column(name = "oid", nullable = false)
-	private String oid;
+	private Integer oid;
 
 	public Integer getOdid() {
 		return odid;
@@ -59,20 +59,22 @@ public class OrderDetail {
 		this.item = item;
 	}
 
-	public String getOid() {
+	public Integer getOid() {
 		return oid;
 	}
 
-	public void setOid(String oid) {
+	public void setOid(Integer oid) {
 		this.oid = oid;
 	}
 
-//	public Orders getOrder() {
-//		return order;
-//	}
-//
-//	public void setOrder(Orders order) {
-//		this.order = order;
-//	}
+
+
+	//	public Orders getOrder() {
+	//		return order;
+	//	}
+	//
+	//	public void setOrder(Orders order) {
+	//		this.order = order;
+	//	}
 
 }

@@ -16,7 +16,14 @@ init.sql
 	基本功能完成，驗證邏輯需再做調整
 7. 加入單一表格CRUD的單元測試
 8. ItemService - [JPA 使用 Specification 复杂查询和 Criteria 查询](https://blog.wuwii.com/jpa-specification.html)
+9. RSA 加解密
+
 
 ---
-待處理問題:
-* 新增失敗sequence會跳，直執行SQL就會有這種狀況，待確認是否為可以解決的問題
+
+練習主題：棒球紀錄
+
+B1-0 - 建立球員-投手相關功能
+
+
+

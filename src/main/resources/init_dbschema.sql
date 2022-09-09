@@ -96,3 +96,21 @@ CREATE TABLE `order_detail` (
   CONSTRAINT `FK4k0rrgfp2el1xp4f8sfyuxmwa` FOREIGN KEY (`iid`) REFERENCES `item` (`seq`),
   CONSTRAINT `FKm6an0aai7muf3tij80e3e6jr5` FOREIGN KEY (`oid`) REFERENCES `orders` (`seq`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+/*球員名單*/
+CREATE TABLE `nlb_player` (
+  `player_id` varchar(255) NOT NULL,
+  `birthday_date` datetime(6) NOT NULL,
+  `created_date` datetime(6) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `update_date` datetime(6) NOT NULL,
+  PRIMARY KEY (`player_id`),
+  UNIQUE KEY `UK_o2egcfb8ask79swlm67m0k8t` (`birthday_date`),
+  UNIQUE KEY `UK_rmmbgk2d93x7y4d7ycnbwhb74` (`created_date`),
+  UNIQUE KEY `UK_en1dqsej3v82n2a6g2vnxmig8` (`name`),
+  UNIQUE KEY `UK_ixq4gf24lc4tsumf7354a5vq3` (`phone`),
+  UNIQUE KEY `UK_n5q2h4iy50swp8ie4pwoh7utx` (`status`),
+  UNIQUE KEY `UK_dvd3d89ya4f9ufy484qkfms4k` (`update_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
