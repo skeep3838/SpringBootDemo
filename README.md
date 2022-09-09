@@ -16,6 +16,7 @@ init.sql
 	基本功能完成，驗證邏輯需再做調整
 7. 加入單一表格CRUD的單元測試
 8. ItemService - [JPA 使用 Specification 复杂查询和 Criteria 查询](https://blog.wuwii.com/jpa-specification.html)
+9. RSA 加解密
 
 
 ---
