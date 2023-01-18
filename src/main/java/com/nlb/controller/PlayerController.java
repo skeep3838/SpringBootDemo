@@ -38,7 +38,7 @@ public class PlayerController {
 	}
 
 	/*		新增球員球員	*/
-	@PostMapping("/selectPlayer")
+	@PostMapping("/savePlayer")
 	public ResponseBodyEntity<Player> savePalyer(HttpServletRequest request, @RequestBody Player plarer) {
 		return playerService.savePalyer(plarer);
 	}

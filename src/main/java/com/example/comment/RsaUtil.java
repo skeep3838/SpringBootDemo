@@ -17,7 +17,7 @@ import javax.crypto.Cipher;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.net.util.Base64;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 public class RsaUtil {
 	private static final String privateKey =
